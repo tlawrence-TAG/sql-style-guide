@@ -668,7 +668,3 @@ declare @variable_name	date = getdate()
 	,@another_variable_name	bigint = 1
 	,@yet_another_variable_name varchar(25) = 'Super Bomb-Bomb';
 ```
-
-## Credits
-
-A lot of this style guide was ripped from: https://github.com/mattm/sql-style-guide
