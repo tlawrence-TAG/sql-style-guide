@@ -700,8 +700,8 @@ from billing_stored_details
 
 ```sql
 declare	@variable_name date = getdate()
-		,@another_variable_name	bigint = 1
-		,@yet_another_variable_name varchar(25) = 'Super Bomb-Bomb';
+	,@another_variable_name	bigint = 1
+	,@yet_another_variable_name varchar(25) = 'Super Bomb-Bomb';
 ```
 
 ### Logging - Don't reinvent the wheel and use an existing framework 'Example in T-SQL'
