@@ -175,7 +175,7 @@ from users
 
 ### Indenting where conditions
 
-When there's only one where condition, leave it on the same line as 'where':
+When there's only one 'where' condition, leave it on the same line as 'where':
 
 ```sql
 select
