@@ -47,7 +47,7 @@ from final
 
 ### Code Refactoring
 
-If someone took the time to refactor a poorly written (and poor performing) query, follow THEIR formatting. Otherwise, it looks like you were lazy, your work looks sloppy and YOU should feel bad for doing it.
+If someone took the time to refactor a poorly written (and poor performing) query, follow **THEIR** formatting. Otherwise, it looks like you were lazy, your work looks sloppy and YOU should feel bad for doing it.
 
 ### Use lowercase SQL
 
