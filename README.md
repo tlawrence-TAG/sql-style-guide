@@ -20,7 +20,7 @@ support_interest as
 		,c.created_at as expressed_interest_at
 	from conversation as c
 	join conversation_tag as ct
-	on c.id = ct.conversation_id
+		on c.id = ct.conversation_id
 	where ct.tag = 'beacon-interest'
 ), 
 combined_interest as
@@ -279,9 +279,9 @@ from users
 
 -- Bad
 select
-    id,
+	id,
 	name,
-	created_at,    
+	created_at,
 from users
 ```
 
@@ -290,8 +290,8 @@ from users
 ```sql
 -- Good
 select
-    u.email,
-    sum(c.amount) as total_revenue
+	u.email
+	,sum(c.amount) as total_revenue
 from users as u
 join charges as c
 	on u.id = c.user_id
@@ -332,14 +332,14 @@ By doing it this way it makes it easier to determine if your join is going to ca
 ```sql
 -- Good
 select
-    ...
+	...
 from users as u
 left join charges as c
 	on u.id = c.user_id
 -- primary_key = foreign_key --> one-to-many --> fanout
   
 select
-    ...
+	...
 from charges as c
 left join users as u
 	on c.user_id = u.id
@@ -347,7 +347,7 @@ left join users as u
 
 -- Bad
 select
-    ...
+	...
 from users as u
 left join charges as c
 	on c.user_id = u.id
@@ -380,8 +380,8 @@ When you have multiple join conditions, place each one on their own indented lin
 ```sql
 -- Good
 select
-    users.email
-    ,sum(charges.amount) as total_revenue
+	users.email
+	,sum(charges.amount) as total_revenue
 from users as u
 join charges as c
 	on u.id = c.user_id
@@ -395,16 +395,16 @@ group by
 ```sql
 -- Good
 select
-    u.email
-    ,sum(c.amount) as total_revenue
+	u.email
+	,sum(c.amount) as total_revenue
 from users as u
 join charges as c
 	on u.id = c.user_id
 
 -- Bad
 select
-    users.email
-    ,sum(charges.amount) as total_revenue
+	users.email
+	,sum(charges.amount) as total_revenue
 from users
 join charges
 	on users.id = charges.user_id
@@ -417,14 +417,14 @@ When there are no join involved, there's no ambiguity around which table the col
 ```sql
 -- Good
 select
-    id
-    ,name
+	id
+	,name
 from companies
 
 -- Bad
 select
-    companies.id,
-    ,companies.name
+	companies.id,
+	,companies.name
 from companies
 ```
 
@@ -433,16 +433,16 @@ But when there are joins involved, it's better to be explicit so it's clear wher
 ```sql
 -- Good
 select
-    u.email
-    ,sum(c.amount) as total_revenue
+	u.email
+	,sum(c.amount) as total_revenue
 from users as u
 join charges as c
 	on u.id = c.user_id
 
 -- Bad
 select
-    users.email
-    ,sum(charges.amount) as total_revenue
+	users.email
+	,sum(charges.amount) as total_revenue
 from users
 join charges
 	on users.id = charges.user_id
@@ -537,30 +537,30 @@ group by
 
 -- Bad
 select
-    timestamp_trunc(created_at, month) as signup_month
-    ,vertical
-    ,count(*) as users_count
+	timestamp_trunc(created_at, month) as signup_month
+	,vertical
+	,count(*) as users_count
 from users
 group by
 	1
 	,vertical
 ```
 
-### Take advantage of lateral column aliasing when grouping by name
+### Take advantage of lateral column aliasing when grouping by name 'ANSI-SQL ONLY'
 
 ```sql
 -- Good
 select
-  timestamp_trunc(com_created_at, year) as signup_year
-  ,count(*) as total_companies
+	timestamp_trunc(com_created_at, year) as signup_year
+	,count(*) as total_companies
 from companies
 group by
 	signup_year
 
 -- Bad
 select
-  timestamp_trunc(com_created_at, year) as signup_year
-  ,count(*) as total_companies
+	timestamp_trunc(com_created_at, year) as signup_year
+	,count(*) as total_companies
 from companies
 group by
 	timestamp_trunc(com_created_at, year)
@@ -571,16 +571,16 @@ group by
 ```sql
 -- Good
 select
-  timestamp_trunc(com_created_at, year) as signup_year
-  ,count(*) as total_companies
+	timestamp_trunc(com_created_at, year) as signup_year
+	,count(*) as total_companies
 from companies
 group by
 	signup_year
 
 -- Bad
 select
-  count(*) as total_companies
-  ,timestamp_trunc(com_created_at, year) as signup_year
+	count(*) as total_companies
+	,timestamp_trunc(com_created_at, year) as signup_year
 from helpscout_companies
 group by
 	signup_year
@@ -591,20 +591,25 @@ group by
 ```sql
 -- Good
 select
-    case	when event_name = 'viewed_homepage' then 'Homepage'
+	case	when event_name = 'viewed_homepage' then 'Homepage'
 			when event_name = 'viewed_editor' then 'Editor'
 	else 'Other'
-    end as page_name
+	end as page_name
 from events
 
 -- Good
 select
-    case	when event_name = 'viewed_homepage'
+	case	when event_name = 'viewed_homepage'
 				then 'Homepage'
 			when event_name = 'viewed_editor'
 				then 'Editor'
 	else 'Other'            
     end as page_name
+from events
+
+-- Good
+select
+	case	when event_name = 'viewed_homepage' then 'Homepage' else 'Other' end as page_name
 from events
 ```
 
@@ -620,19 +625,19 @@ Closing CTE parentheses should use the same indentation level as 'with' and the 
 -- Good
 ;with ordered_details as
 (
-    select
-        user_id
-        ,name
-        ,row_number() over (partition by user_id order by date_updated desc) as details_rank
-    from billing_stored_details
+	select
+		user_id
+		,name
+		,row_number() over (partition by user_id order by date_updated desc) as details_rank
+	from billing_stored_details
 ),
 final as
 (
-    select
+	select
 		user_id
 		,name
-    from ordered_details
-    where details_rank = 1
+	from ordered_details
+	where details_rank = 1
 )
 select *
 from final
@@ -657,14 +662,14 @@ with d1 as
 select
 	subquery_name.*
 from	(
-		select
-			row_number() over (partition by name order by date_field desc) as rn
-		from table_b
-	) as subquery_name
+			select
+				row_number() over (partition by name order by date_field desc) as rn
+			from table_b
+		) as subquery_name
 join	(
-		select *
-		from table_c
-	) as join_c
+			select *
+			from table_c
+		) as join_c
 	on subquery_name.field = join_c.field
 
 -- Bad
@@ -685,22 +690,42 @@ You can leave it all on its own line or break it up into multiple depending on i
 ```sql
 -- Good
 select
-    user_id
-    ,name
-    ,row_number() over (partition by user_id order by date_updated desc) as details_rank
+	user_id
+	,name
+	,row_number() over (partition by user_id order by date_updated desc) as details_rank
 from billing_stored_details
 ```
 
-### MS SQL declarations/variables
+### T-SQL Variables
 
 ```sql
-declare @variable_name	date = getdate()
-	,@another_variable_name	bigint = 1
-	,@yet_another_variable_name varchar(25) = 'Super Bomb-Bomb';
+declare	@variable_name date = getdate()
+		,@another_variable_name	bigint = 1
+		,@yet_another_variable_name varchar(25) = 'Super Bomb-Bomb';
 ```
 
-### Logging - Don't reinvent the wheel and use an existing framework
+### Logging - Don't reinvent the wheel and use an existing framework 'Example in T-SQL'
 
 ```sql
+-- Logging inside a stored procedure
+declare @processName nvarchar(100) = object_name(@@procid)		
+		,@processStartTime	datetime = getdate()
+		,@message	varchar(500)
+		,@startTime	datetime
+		,@rowCount	bigint
+		,@sysLog	tinyint = 0
+		,@tableLog	tinyint = 1
 
+exec DBAdmin.dbo.TimeMessageLogger_sp @processName, 'Starting', null, null, @sysLog, @tableLog;
+
+select	@message = 'Populating ' + quotename('table_name', char(39))
+		,@startTime = getdate();
+exec DBAdmin.dbo.TimeMessageLogger_sp @processName, @message, null, null, @sysLog, @tableLog;
+
+select	@rowCount = @@rowcount
+		,@message = 'Inserted ' + format(@@rowcount, 'N0') + ' records into ' + quotename('table_name', char(39));
+exec DBAdmin.dbo.TimeMessageLogger_sp @processName, @message, @startTime, null, @sysLog, @tableLog;
+
+select	@message = 'Process complete';
+exec DBAdmin.dbo.TimeMessageLogger_sp @processName, @message, @processStartTime, null, @sysLog, @tableLog;
 ```
