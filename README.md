@@ -255,14 +255,14 @@ Put the date column first, followed by primary key, then by all other columns. I
 -- Good
 select
     created_at
-		,id
+	,id
     ,name
 from users
 -- Bad
 select
     id,
-		name,
-		created_at,    
+	name,
+	created_at,    
 from users
 ```
 
@@ -281,7 +281,7 @@ select
     u.email,
     sum(c.amount) as total_revenue
 from users as u
-inner join charges as c
+join charges as c
 	on u.id = c.user_id
 ```
 
@@ -363,7 +363,7 @@ select
     users.email
     ,sum(charges.amount) as total_revenue
 from users
-inner join charges
+join charges
 	on users.id = charges.user_id
 ```
 
@@ -452,9 +452,9 @@ where not is_cancelled
 ```sql
 -- Good
 select
-    ,id
-    ,email
-    ,timestamp_trunc(created_at, month) as signup_month
+	,id
+	,email
+	,timestamp_trunc(created_at, month) as signup_month
 from users
 -- Bad
 select
@@ -632,8 +632,9 @@ from billing_stored_details
 
 ```sql
 declare @variable_name	date = getdate()
-		,@another_variable_name	bigint = 1
-		,@yet_another_variable_name varchar(25) = 'Super Bomb-Bomb';
+	,@another_variable_name	bigint = 1
+	,@yet_another_variable_name varchar(25) = 'Super Bomb-Bomb';
+```
 
 ## Credits
 
