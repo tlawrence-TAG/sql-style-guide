@@ -1,4 +1,4 @@
-# ANSI/MS SQL Style Guide
+# ANSI/T-SQL Style Guide
 
 ## Example - Use Tabs for indention! The code formats itself for text editors, etc.
 
