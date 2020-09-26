@@ -53,9 +53,11 @@ It's just as readable as uppercase SQL and you won't have to constantly be holdi
 -- Good
 select *
 from users
+
 -- Bad
 SELECT *
 FROM users
+
 -- Bad
 Select *
 From users
@@ -68,8 +70,10 @@ The only time you should place all of your SQL on a single line is when you're s
 ```sql
 -- Good
 select * from users
+
 -- Good
 select id from users
+
 -- Good
 select count(*) from users
 ```
@@ -83,10 +87,12 @@ select
 	,email
 	,created_at
 from users
+
 -- Good
 select *
 from users
 where email = 'example@domain.com'
+
 -- Good
 select
 	user_id
@@ -94,9 +100,11 @@ select
 from charges
 group by
 	user_id
+
 -- Bad
 select id, email, created_at
 from users
+
 -- Bad
 select id,
 	email
@@ -114,6 +122,7 @@ select
 	,email
 from users
 where email like '%@gmail.com'
+
 -- Bad
 select id, email
   from users
@@ -129,6 +138,7 @@ Some SQL dialects like BigQuery support using double quotes, but for most dialec
 select *
 from users
 where email = 'example@domain.com'
+
 -- Bad
 select *
 from users
@@ -137,7 +147,7 @@ where email = "example@domain.com"
 
 ### Use '!=' over '<>'
 
-Simply because `!=` reads like "not equal" which is closer to how we'd say it out loud. However, MS SQL tends to favor '<>'
+Simply because '!=' reads like "not equal" which is closer to how we'd say it out loud. However, MS SQL tends to favor '<>'
 
 ```sql
 -- Good
@@ -155,6 +165,7 @@ select
 	id
 	,email
 from users
+
 -- Bad
 select
 	id,
@@ -164,7 +175,7 @@ from users
 
 ### Indenting where conditions
 
-When there's only one where condition, leave it on the same line as `where`:
+When there's only one where condition, leave it on the same line as 'where':
 
 ```sql
 select
@@ -192,13 +203,14 @@ and vertical = 'work'
 select *
 from users
 where id in (1, 2)
+
 -- Bad
 select *
 from users
 where id in ( 1, 2 )
 ```
 
-### Break long lists of `in` values into multiple indented lines
+### Break long lists of 'in' values into multiple indented lines
 
 ```sql
 -- Good
@@ -213,12 +225,13 @@ where email in
 )
 ```
 
-### Table names should be a plural snake case of the noun
+### Table names should be a plural snake_case of the noun
 
 ```sql
 -- Good
 select * from users
 select * from visit_logs
+
 -- Bad
 select * from user
 select * from visitLog
@@ -233,6 +246,7 @@ select
 	,email
 	,timestamp_trunc(created_at, month) as signup_month
 from users
+
 -- Bad
 select
 	id
@@ -243,21 +257,22 @@ from users
 
 ### Column name conventions
 
-* Boolean fields should be prefixed with `is_`, `has_`, or `does_`. For example, `is_customer`, `has_unsubscribed`, etc.
-* Date-only fields should be suffixed with `_date`. For example, `report_date`.
-* Date+time fields should be suffixed with `_at`. For example, `created_at`, `posted_at`, etc.
+* Boolean fields should be prefixed with 'is_', 'has_', or 'does_'. For example, 'is_customer', 'has_unsubscribed', etc.
+* Date-only fields should be suffixed with '_date'. For example, 'report_date'.
+* Date+time fields should be suffixed with '_at'. For example, 'created_at', 'posted_at', etc.
 
 ### Column order conventions
 
-Put the date column first, followed by primary key, then by all other columns. If the table has any system columns (`created_at`, `updated_at`, `is_deleted`, etc.), put those last.
+Put the date column first, followed by primary key, then by all other columns. If the table has any system columns ('created_at', 'updated_at', 'is_deleted', etc.), put those last.
 
 ```sql
 -- Good
 select
-    created_at
+	created_at
 	,id
-    ,name
+	,name
 from users
+
 -- Bad
 select
     id,
@@ -266,7 +281,7 @@ select
 from users
 ```
 
-### Don't include `inner` for inner joins - don't over-complicate things
+### Don't include 'inner' for inner joins - don't over-complicate things
 
 ```sql
 -- Good
@@ -276,6 +291,7 @@ select
 from users as u
 join charges as c
 	on u.id = c.user_id
+
 -- Bad
 select
     u.email,
@@ -285,7 +301,7 @@ join charges as c
 	on u.id = c.user_id
 ```
 
-### For join conditions, put the table that was referenced first immediately after the `on`
+### For join conditions, put the table that was referenced first immediately after the 'on'
 
 By doing it this way it makes it easier to determine if your join is going to cause the results to fan out:
 
@@ -304,6 +320,7 @@ from charges as c
 left join users as u
 	on c.user_id = u.id
 -- foreign_key = primary_key --> many-to-one --> no fanout
+
 -- Bad
 select
     ...
@@ -324,6 +341,7 @@ join charges as c
 	on u.id = c.user_id
 group by
 	email
+
 -- Bad
 select
     users.email
@@ -358,6 +376,7 @@ select
 from users as u
 join charges as c
 	on u.id = c.user_id
+
 -- Bad
 select
     users.email
@@ -377,6 +396,7 @@ select
     id
     ,name
 from companies
+
 -- Bad
 select
     companies.id,
@@ -394,6 +414,7 @@ select
 from users as u
 join charges as c
 	on u.id = c.user_id
+
 -- Bad
 select
     users.email
@@ -410,15 +431,18 @@ join charges
 select
 	count(*) as total_users
 from users
+
 -- Bad
 select
 	count(*)
 from users
+
 -- Good
 select
 	timestamp_millis(property_beacon_interest) as expressed_interest_at
 from contact
 where property_beacon_interest is not null
+
 -- Bad
 select
 	timestamp_millis(property_beacon_interest)
@@ -437,6 +461,7 @@ where is_cancelled = 'true'
 select *
 from customers
 where is_cancelled = 'false'
+
 -- Bad
 select *
 from customers
@@ -447,7 +472,7 @@ from customers
 where not is_cancelled
 ```
 
-### Use `as` to alias column names
+### Use 'as' to alias column names
 
 ```sql
 -- Good
@@ -456,6 +481,7 @@ select
 	,email
 	,timestamp_trunc(created_at, month) as signup_month
 from users
+
 -- Bad
 select
     id
@@ -476,6 +502,7 @@ select
 from charges
 group by
 	user_id
+
 -- Good
 select
 	user_id
@@ -483,6 +510,7 @@ select
 from charges
 group by
 	1
+
 -- Bad
 select
     timestamp_trunc(created_at, month) as signup_month
@@ -504,6 +532,7 @@ select
 from companies
 group by
 	signup_year
+
 -- Bad
 select
   timestamp_trunc(com_created_at, year) as signup_year
@@ -523,6 +552,7 @@ select
 from companies
 group by
 	signup_year
+
 -- Bad
 select
   count(*) as total_companies
@@ -542,7 +572,8 @@ select
 	else 'Other'
     end as page_name
 from events
--- Good too
+
+-- Good
 select
     case	when event_name = 'viewed_homepage'
 				then 'Homepage'
@@ -557,13 +588,13 @@ from events
 
 When using CTEs, pad the query with new lines. 
 
-If you use any CTEs, always have a CTE named `final` and `select * from final` at the end. That way you can quickly inspect the output of other CTEs used in the query to debug the results.
+If you use any CTEs, always have a CTE named 'final' and 'select * from final' at the end. That way you can quickly inspect the output of other CTEs used in the query to debug the results.
 
-Closing CTE parentheses should use the same indentation level as `with` and the CTE names.
+Closing CTE parentheses should use the same indentation level as 'with' and the CTE names.
 
 ```sql
 -- Good
-with ordered_details as
+;with ordered_details as
 (
     select
         user_id
@@ -589,6 +620,7 @@ from final
 -- Good
 with ordered_details as
 (
+
 -- Bad
 with d1 as
 (
@@ -604,6 +636,7 @@ from	(
 			row_number() over (partition by name order by date_field desc) as rn
 		from table_b
 	) as subquery_name
+
 -- Bad
 select *
 from
