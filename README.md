@@ -2,6 +2,7 @@
 
 ## Example - Use TABS for indention! The code formats itself for text editors, etc.
 
+Readability & Maintainability first... We can fix the performance after that!
 Here's a non-trivial query to give you an idea of what this style guide looks like in the practice:
 
 ```sql
@@ -728,4 +729,20 @@ exec DBAdmin.dbo.TimeMessageLogger_sp @processName, @message, @startTime, null, 
 
 select	@message = 'Process complete';
 exec DBAdmin.dbo.TimeMessageLogger_sp @processName, @message, @processStartTime, null, @sysLog, @tableLog;
+```
+
+### Space your operators!
+
+```sql
+-- Good
+select
+	(charge_amount * charge_tax_amount) as new_field
+	,iif(field = 1, field_two, 0) as new_field
+from charges
+
+-- Bad
+select
+	(charge_amount*charge_tax_amount) as new_field
+	,iif(field=1,field_two,0) as new_field
+from charges
 ```
