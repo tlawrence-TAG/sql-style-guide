@@ -1,6 +1,6 @@
 # ANSI/T-SQL Style Guide
 
-## Example - Use Tabs for indention! The code formats itself for text editors, etc.
+## Example - Use TABS for indention! The code formats itself for text editors, etc.
 
 Here's a non-trivial query to give you an idea of what this style guide looks like in the practice:
 
