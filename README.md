@@ -630,12 +630,18 @@ with d1 as
 
 ```sql
 -- Good
-select *
+select
+	subquery_name.*
 from	(
 		select
 			row_number() over (partition by name order by date_field desc) as rn
 		from table_b
 	) as subquery_name
+join	(
+		select *
+		from table_c
+	) as join_c
+	on subquery_name.field = join_c.field
 
 -- Bad
 select *
@@ -667,4 +673,10 @@ from billing_stored_details
 declare @variable_name	date = getdate()
 	,@another_variable_name	bigint = 1
 	,@yet_another_variable_name varchar(25) = 'Super Bomb-Bomb';
+```
+
+### Use an existing framework for Logging! Don't reinvent the wheel!
+
+```sql
+
 ```
