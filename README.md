@@ -351,7 +351,7 @@ join charges as c on users.id = charges.user_id
 group by email
 ```
 
-When you have mutliple join conditions, place each one on their own indented line:
+When you have multiple join conditions, place each one on their own indented line:
 
 ```sql
 -- Good
