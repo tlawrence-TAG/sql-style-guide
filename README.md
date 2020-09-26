@@ -3,6 +3,7 @@
 ## Example - Use TABS for indention! The code formats itself for text editors, etc.
 
 ***Readability & Maintainability*** first... We can fix the performance after!
+
 Here's a non-trivial query to give you an idea of what this style guide looks like in the practice:
 
 ```sql
