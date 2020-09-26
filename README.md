@@ -600,10 +600,10 @@ with d1 as
 -- Good
 select *
 from	(
-				select
-					row_number() over (partition by name order by date_field desc) as rn
-				from table_b
-			) as subquery_name
+		select
+			row_number() over (partition by name order by date_field desc) as rn
+		from table_b
+	) as subquery_name
 -- Bad
 select *
 from
