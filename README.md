@@ -1,43 +1,44 @@
 # ANSI/MS SQL Style Guide
 
-## Example
+## Example - Use Tabs = 4 for indention
 
 Here's a non-trivial query to give you an idea of what this style guide looks like in the practice:
 
 ```sql
 with interest as
 (
-    select
-        email
-        ,timestamp_millis(property_beacon_interest) as expressed_interest_at
-    from contact
-    where property_beacon_interest is not null
+	select
+		email
+		,timestamp_millis(property_beacon_interest) as expressed_interest_at
+	from contact
+	where property_beacon_interest is not null
 ), 
 support_interest as
 (
-    select 
-        c.email
-        ,c.created_at as expressed_interest_at
-    from conversation as c
-    join conversation_tag as ct
-			on c.id = ct.conversation_id
-    where ct.tag = 'beacon-interest'
+	select 
+		c.email
+		,c.created_at as expressed_interest_at
+	from conversation as c
+	join conversation_tag as ct
+	on c.id = ct.conversation_id
+	where ct.tag = 'beacon-interest'
 ), 
 combined_interest as
 (
-    select *
-		from interest
-    union all
-    select *
-		from support_interest
+	select *
+	from interest
+	union all
+	select *
+	from support_interest
 ),
 final as
 (
-    select
-        email
-        ,min(expressed_interest_at) as expressed_interest_at
-    from combined_interest
-    group by email
+	select
+		email
+		,min(expressed_interest_at) as expressed_interest_at
+	from combined_interest
+	group by
+		email
 )
 select *
 from final
@@ -78,9 +79,9 @@ Once you start adding more columns or more complexity, the query becomes easier 
 ```sql
 -- Good
 select
-    id
-    ,email
-    ,created_at
+	id
+	,email
+	,created_at
 from users
 -- Good
 select *
@@ -88,8 +89,8 @@ from users
 where email = 'example@domain.com'
 -- Good
 select
-    user_id
-    ,count(*) as total_charges
+	user_id
+	,count(*) as total_charges
 from charges
 group by
 	user_id
@@ -98,7 +99,7 @@ select id, email, created_at
 from users
 -- Bad
 select id,
-    email
+	email
 from users
 ```
 
@@ -156,8 +157,8 @@ select
 from users
 -- Bad
 select
-    id,
-    email
+	id,
+	email
 from users
 ```
 
@@ -205,10 +206,10 @@ select *
 from users
 where email in
 (
-    'user-1@example.com'
-    ,'user-2@example.com'
-    ,'user-3@example.com'
-    ,'user-4@example.com'
+	'user-1@example.com'
+	,'user-2@example.com'
+	,'user-3@example.com'
+	,'user-4@example.com'
 )
 ```
 
@@ -228,15 +229,15 @@ select * from visitLog
 ```sql
 -- Good
 select
-    id
-    ,email
-    ,timestamp_trunc(created_at, month) as signup_month
+	id
+	,email
+	,timestamp_trunc(created_at, month) as signup_month
 from users
 -- Bad
 select
-    id
-    ,email
-    ,timestamp_trunc(created_at, month) as SignupMonth
+	id
+	,email
+	,timestamp_trunc(created_at, month) as SignupMonth
 from users
 ```
 
