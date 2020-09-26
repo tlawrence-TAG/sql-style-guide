@@ -147,7 +147,7 @@ where email = "example@domain.com"
 
 ### Use '!=' over '<>'
 
-Simply because '!=' reads like "not equal" which is closer to how we'd say it out loud. However, MS SQL tends to favor '<>'
+Simply because '!=' reads like "not equal" which is closer to how we'd say it out loud. However, T-SQL tends to favor '<>'
 
 ```sql
 -- Good
