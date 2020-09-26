@@ -192,7 +192,7 @@ select
 	,email
 from users
 where 1 = 1
-created_at >= '2019-03-01'
+and created_at >= '2019-03-01'
 and vertical = 'work'
 ```
 
