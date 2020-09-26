@@ -45,6 +45,10 @@ from final
 ```
 ## Guidelines
 
+### Code Refactoring
+
+If someone took the time to refactor a poorly written (and poor performing) query, follow THEIR formatting. Otherwise, it looks like you were lazy, your work looks sloppy and YOU should feel bad for doing it.
+
 ### Use lowercase SQL
 
 It's just as readable as uppercase SQL and you won't have to constantly be holding down a shift key.
@@ -294,12 +298,32 @@ join charges as c
 
 -- Bad
 select
-    u.email,
-    sum(c.amount) as total_revenue
+	u.email,
+	sum(c.amount) as total_revenue
 from users as u
-join charges as c
+inner join charges as c
 	on u.id = c.user_id
 ```
+
+### Joins
+
+There's no need to specify 'outer' for 'left join' or 'right join'. Also, don't use 'right join'. This means you have the wrong table order.
+
+```sql
+-- Good
+select
+	u.*
+from users as u
+left join charges as c
+	on u.id = c.user_id
+
+-- Bad
+select
+	u.*
+from users as u
+left outer join charges as c
+	on u.id = c.user_id
+```sql
 
 ### For join conditions, put the table that was referenced first immediately after the 'on'
 
@@ -675,7 +699,7 @@ declare @variable_name	date = getdate()
 	,@yet_another_variable_name varchar(25) = 'Super Bomb-Bomb';
 ```
 
-### Use an existing framework for Logging! Don't reinvent the wheel!
+### Logging - Don't reinvent the wheel and use an existing framework
 
 ```sql
 
