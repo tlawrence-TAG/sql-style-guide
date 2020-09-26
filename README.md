@@ -592,7 +592,7 @@ group by
 -- Good
 select
 	case	when event_name = 'viewed_homepage' then 'Homepage'
-			when event_name = 'viewed_editor' then 'Editor'
+		when event_name = 'viewed_editor' then 'Editor'
 	else 'Other'
 	end as page_name
 from events
@@ -600,11 +600,11 @@ from events
 -- Good
 select
 	case	when event_name = 'viewed_homepage'
-				then 'Homepage'
-			when event_name = 'viewed_editor'
-				then 'Editor'
-	else 'Other'            
-    end as page_name
+			then 'Homepage'
+		when event_name = 'viewed_editor'
+			then 'Editor'
+	else 'Other'
+    	end as page_name
 from events
 
 -- Good
@@ -709,21 +709,21 @@ declare	@variable_name date = getdate()
 ```sql
 -- Logging inside a stored procedure
 declare @processName nvarchar(100) = object_name(@@procid)		
-		,@processStartTime	datetime = getdate()
-		,@message	varchar(500)
-		,@startTime	datetime
-		,@rowCount	bigint
-		,@sysLog	tinyint = 0
-		,@tableLog	tinyint = 1
+	,@processStartTime datetime = getdate()
+	,@message varchar(500)
+	,@startTime datetime
+	,@rowCount bigint
+	,@sysLog tinyint = 0
+	,@tableLog tinyint = 1
 
 exec DBAdmin.dbo.TimeMessageLogger_sp @processName, 'Starting', null, null, @sysLog, @tableLog;
 
 select	@message = 'Populating ' + quotename('table_name', char(39))
-		,@startTime = getdate();
+	,@startTime = getdate();
 exec DBAdmin.dbo.TimeMessageLogger_sp @processName, @message, null, null, @sysLog, @tableLog;
 
 select	@rowCount = @@rowcount
-		,@message = 'Inserted ' + format(@@rowcount, 'N0') + ' records into ' + quotename('table_name', char(39));
+	,@message = 'Inserted ' + format(@@rowcount, 'N0') + ' records into ' + quotename('table_name', char(39));
 exec DBAdmin.dbo.TimeMessageLogger_sp @processName, @message, @startTime, null, @sysLog, @tableLog;
 
 select	@message = 'Process complete';
